@@ -1,0 +1,1 @@
+from researchutils.chainer.functions.loss.average_k_step_squared_error import average_k_step_squared_error
