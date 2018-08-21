@@ -2,7 +2,8 @@ from setuptools import find_packages
 from setuptools import setup
 
 install_requires = ['chainer']
-test_requires = ['numpy']
+tests_require = ['numpy', 'pytest', 'mock']
+setup_requires = ["pytest-runner"]
 
 setup(
     name='researchutils',
@@ -14,6 +15,7 @@ setup(
     url='https://github.com/yuishihara/researchutils',
     license='MIT License',
     packages=find_packages(exclude=('tests')),
+    setup_requires=setup_requires,
     test_suite='tests',
-    test_requires=test_requires
+    tests_require=tests_require
 )
