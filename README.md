@@ -4,3 +4,15 @@
 
 # researchutils
 Python utilities for deep learning research
+
+# How to use
+To install the package
+
+```bash
+python setup.sh install
+```
+
+To run tests
+```bash
+python setup.sh test
+```
