@@ -1,5 +1,5 @@
 [![Master Build Status](https://api.travis-ci.org/yuishihara/researchutils.svg?branch=master)](https://api.travis-ci.org/yuishihara/researchutils.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/yuishihara/researchutils/badge.svg?branch=master)](https://coveralls.io/github/yuishihara/researchutils?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/yuishihara/researchutils/badge.svg)](https://coveralls.io/github/yuishihara/researchutils)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 # researchutils
@@ -23,7 +23,7 @@ This project is using GitHub flow ([See here for details](https://guides.github.
 
 ## Target python versions
 Target python versions are 2.7, 3.4, 3.5 and 3.6 (as of August 2018). <br/>
-Use [six](https://pythonhosted.org/six/), [future](https://pypi.org/project/future/) or any other libraries to keep compativility among above python versions.
+Use [six](https://pythonhosted.org/six/), [future](https://pypi.org/project/future/) or any other libraries to keep compatibility among above python versions.
 
 ## Repository structure
 ### Module structure
