@@ -16,3 +16,44 @@ To run tests
 ```bash
 python setup.sh test
 ```
+
+# Contribution guide
+New features and bug fixes are welcome. Send PRs. \
+This project is using GitHub flow ([See here for details](https://guides.github.com/introduction/flow/)) for development so do not try to push directly to master branch (It will be rejected anyway).
+
+## Target python versions
+Target python versions are 2.7, 3.4, 3.5 and 3.6 (as of August 2018). <br/>
+Use [six](https://pythonhosted.org/six/), [future](https://pypi.org/project/future/) or any other libraries to keep compativility among above python versions.
+
+## Repository structure
+### Module structure
+Write your features under ./researchutils/ \
+Write your tests for the features under ./tests/ \
+
+### When writing utilities for chainer
+Keep same directory structure as [original chainer](https://github.com/chainer/chainer) as much as possible under ./researchutils/chainer/. <br/>
+For example, if you are writing new chainer.function, then place your new function under <br/>
+./researchutils/chainer/functions/xxx/ <br/>
+and write import statement in <br/>
+./researchutils/chainer/functions/__init\__.py
+
+## Write tests
+When adding new feature such as function/class, always and must write test(s) unless it will be rejected.
+
+### Where should I write my feature's tests?
+When writing tests, for example for *feature_module*.py, please create test module file of name test_*feature_module_name*.py and place exactly at the same layer of your feature module. \
+See below.
+
+```
+├── researchutils
+│   ├── __init__.py
+│   ...
+│   ├── your_owesome_module.py
+...
+└── tests
+    ├── __init__.py
+    ...
+    ├── test_your_owesome_module.py
+    │
+    ...
+```
