@@ -6,13 +6,21 @@
 Python utilities for deep learning research
 
 # How to use
-To install the package
+## Install the package
 
 ```bash
 python setup.sh install
 ```
 
-To run tests
+## When developing the package
+
+It is recommended to use develop instead of install option to reflect changes in the directory
+
+```bash
+python setup.sh develop
+```
+
+## To run tests
 ```bash
 python setup.sh test
 ```
