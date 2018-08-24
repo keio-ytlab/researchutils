@@ -18,7 +18,7 @@ python setup.sh test
 ```
 
 # Contribution guide
-New features and bug fixes are welcome. Send PRs. \
+New features and bug fixes are welcome. Send PRs. <br/>
 This project is using GitHub flow ([See here for details](https://guides.github.com/introduction/flow/)) for development so do not try to push directly to master branch (It will be rejected anyway).
 
 ## Target python versions
@@ -27,8 +27,8 @@ Use [six](https://pythonhosted.org/six/), [future](https://pypi.org/project/futu
 
 ## Repository structure
 ### Module structure
-Write your features under ./researchutils/ \
-Write your tests for the features under ./tests/ \
+Write your features under ./researchutils/ <br/>
+Write your tests for the features under ./tests/ <br/>
 
 ### When writing utilities for chainer
 Keep same directory structure as [original chainer](https://github.com/chainer/chainer) as much as possible under ./researchutils/chainer/. <br/>
@@ -41,7 +41,7 @@ and write import statement in <br/>
 When adding new feature such as function/class, always and must write test(s) unless it will be rejected.
 
 ### Where should I write my feature's tests?
-When writing tests, for example for *feature_module*.py, please create test module file of name test_*feature_module_name*.py and place exactly at the same layer of your feature module. \
+When writing tests, for example for *feature_module*.py, please create test module file of name test_*feature_module_name*.py and place exactly at the same layer of your feature module. <br/>
 See below.
 
 ```
