@@ -31,8 +31,8 @@ Write your features under ./researchutils/ <br/>
 Write your tests for the features under ./tests/ <br/>
 
 ### When writing utilities for chainer
-Keep same directory structure as [original chainer](https://github.com/chainer/chainer) as much as possible under ./researchutils/chainer/. <br/>
-For example, if you are writing new chainer.function, then place your new function under <br/>
+Keep same directory structure of [original chainer](https://github.com/chainer/chainer) as much as possible under ./researchutils/chainer/. <br/>
+For example, if you are writing new chainer.function,  place your new function under <br/>
 ./researchutils/chainer/functions/xxx/ <br/>
 and write import statement in <br/>
 ./researchutils/chainer/functions/__init\__.py
