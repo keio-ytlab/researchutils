@@ -6,10 +6,16 @@
 Python utilities for deep learning research
 
 # How to use
-## Install the package
+## To install the package
 
 ```bash
 python setup.sh install
+```
+
+or if you prefer using pip
+
+```bash
+pip install .
 ```
 
 ## When developing the package
@@ -18,6 +24,12 @@ It is recommended to use develop instead of install option to reflect changes in
 
 ```bash
 python setup.sh develop
+```
+
+or if you prefer using pip
+
+```bash
+pip install -e .
 ```
 
 ## To run tests
