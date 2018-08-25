@@ -132,7 +132,8 @@ class TestDecorableSerialIterator(object):
         assert iterator.epoch_detail <= 1.0
 
         iterator.next()
-        assert 1.0 < iterator.epoch_detail 
+        iterator.next()
+        assert 2.0 < iterator.epoch_detail 
 
 
 if __name__ == '__main__':
