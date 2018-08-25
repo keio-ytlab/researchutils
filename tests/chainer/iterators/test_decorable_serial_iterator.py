@@ -119,6 +119,21 @@ class TestDecorableSerialIterator(object):
         batch = iterator.next()
         assert len(batch) == 4
 
+    def test_epoch_detail(self):
+        dataset = [data for data in range(50)]
+        batch_size = 32
+        iterator = decorable_serial_iterator.DecorableSerialIterator(dataset=dataset,
+                                                                     batch_size=batch_size,
+                                                                     repeat=True,
+                                                                     shuffle=False,
+                                                                     decor_fun=None,
+                                                                     end_index=40)
+        iterator.next()
+        assert iterator.epoch_detail <= 1.0
+
+        iterator.next()
+        assert 1.0 < iterator.epoch_detail 
+
 
 if __name__ == '__main__':
     pytest.main()

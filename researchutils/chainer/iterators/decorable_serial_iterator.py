@@ -61,6 +61,10 @@ class DecorableSerialIterator(SerialIterator):
             return self.decor_fun(dataset, index)
         return dataset[index]
 
+    @property
+    def epoch_detail(self):
+        return self.epoch + self.current_position / self.end_index
+
     def reset(self):
         if self._shuffle:
             self._order = numpy.random.permutation(self.end_index)
