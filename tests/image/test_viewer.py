@@ -82,7 +82,7 @@ class TestViewer(object):
                             assert mock_subplot.call_count == 2
                             assert mock_show.call_count == 1
 
-    def test_animate_save_fig(self):
+    def test_animate_save_gif(self):
         with patch('matplotlib.image.AxesImage') as mock_axes:
             with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
                 with patch('matplotlib.pyplot.figure') as mock_figure:
