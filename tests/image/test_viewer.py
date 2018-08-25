@@ -52,6 +52,31 @@ class TestViewer(object):
         with pytest.raises(ValueError):
             viewer.show_images(images=images, titles=titles)
 
+    def test_animate(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                num_frames = 10
+                images = [np.ndarray(shape=(10, 10, 3))
+                          for i in range(num_frames)]
+                viewer.animate(images, auto_close=True)
+
+                assert mock_axes.set_data.call_count == num_frames + 1
+                assert mock_imshow.call_count == 1
+
+    def test_animate_with_comparison(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                    num_frames = 10
+                    images = [np.ndarray(shape=(10, 10, 3))
+                              for i in range(num_frames)]
+                    viewer.animate(
+                        images=images, comparisons=images, auto_close=True)
+
+                    assert mock_axes.set_data.call_count == (num_frames + 1) * 2
+                    assert mock_imshow.call_count == 2
+                    assert mock_subplot.call_count == 2
+
 
 if __name__ == '__main__':
     pytest.main()
