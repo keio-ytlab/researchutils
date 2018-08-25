@@ -28,7 +28,8 @@ def show_images(images, titles=[], is_gray=False):
     plt.show()
 
 
-def animate(images, comparisons=None, is_gray=False, repeat=False, save_gif=False, auto_close=False):
+def animate(images, comparisons=None, titles=[], is_gray=False, repeat=False,
+            save_gif=False, save_mp4=False, auto_close=False):
     fig = plt.figure()
     cm = None
     cm_plt = None
@@ -45,26 +46,38 @@ def animate(images, comparisons=None, is_gray=False, repeat=False, save_gif=Fals
         if cm:
             im.set_data(images[0])
             cm.set_data(comparisons[0])
-            im_plt.set_title('image frame: {}'.format(0))
-            cm_plt.set_title('comparison frame: {}'.format(0))
+            for i, title in enumerate(titles):
+                if i == 0:
+                    im_plt.set_title('{} frame: {}'.format(title, 0))
+                else:
+                    cm_plt.set_title('{} frame: {}'.format(title, 0))
         else:
             im.set_data(images[0])
-            plt.title('frame: {}'.format(0))
+            if 0 < len(titles):
+                plt.title('{} frame: {}'.format(titles[0], 0))
 
     def update(index):
         if cm:
             im.set_data(images[index])
             cm.set_data(comparisons[index])
-            im_plt.set_title('image frame: {}'.format(index))
-            cm_plt.set_title('comparison frame: {}'.format(index))
+            for i, title in enumerate(titles):
+                if i == 0:
+                    im_plt.set_title('{} frame: {}'.format(title, index))
+                else:
+                    cm_plt.set_title('{} frame: {}'.format(title, index))
         else:
             im.set_data(images[index])
-            plt.title('frame: {}'.format(index))
+            if 0 < len(titles):
+                plt.title('{} frame: {}'.format(titles[0], index))
         return im
 
     anim = pltanim.FuncAnimation(
         fig, update, init_func=init, frames=len(images), interval=10, repeat=repeat)
     if save_gif:
         anim.save('anim.gif', writer='imagemagick')
+    if save_mp4:
+        Writer = pltanim.writers['ffmpeg']
+        writer = Writer(fps=15, bitrate=1800)
+        anim.save('anim.mp4', writer=writer)
     block = not auto_close
     plt.show(block=block)
