@@ -4,8 +4,13 @@ from slackclient import SlackClient as slackclient_module
 
 
 class SlackReport(extension.Extension):
-    def __init__(self, slack_client, entries, channel='general', log_report='LogReport'):
-        self._slack_client = slack_client
+    def __init__(self, token_or_client, entries, channel='general', log_report='LogReport'):
+        if isinstance(token_or_client, slackclient_module):
+            self._slack_client = token_or_client
+        elif isinstance(token_or_client, str):
+            self._slack_client = slackclient_module(token=token_or_client)
+        else:
+            raise TypeError('Given argument is neither SlackClient nor token!!')
         self._entries = entries
         self._channel = channel
         self._log_report = log_report

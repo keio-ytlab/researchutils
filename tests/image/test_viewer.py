@@ -1,3 +1,4 @@
+import matplotlib
 import matplotlib.pyplot
 import numpy as np
 from researchutils.image import viewer
@@ -51,6 +52,51 @@ class TestViewer(object):
         titles = [title1]
         with pytest.raises(ValueError):
             viewer.show_images(images=images, titles=titles)
+
+    def test_animate(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.pyplot.show', return_value=mock_axes) as mock_show:
+                        num_frames = 10
+                        images = [np.ndarray(shape=(10, 10, 3))
+                                  for i in range(num_frames)]
+                        viewer.animate(images, auto_close=True)
+
+                        assert mock_imshow.call_count == 1
+                        assert mock_show.call_count == 1
+
+    def test_animate_with_comparison(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                            num_frames = 10
+                            images = [np.ndarray(shape=(10, 10, 3))
+                                      for i in range(num_frames)]
+                            viewer.animate(
+                                images=images, comparisons=images, auto_close=True)
+
+                            assert mock_imshow.call_count == 2
+                            assert mock_subplot.call_count == 2
+                            assert mock_show.call_count == 1
+
+    def test_animate_save_fig(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.animation.FuncAnimation.save') as mock_save:
+                        with patch('matplotlib.pyplot.show') as mock_show:
+                            num_frames = 10
+                            images = [np.ndarray(shape=(10, 10, 3))
+                                      for i in range(num_frames)]
+                            viewer.animate(
+                                images, auto_close=True, save_gif=True)
+
+                            assert mock_save.call_count == 1
+                            assert mock_imshow.call_count == 1
+                            assert mock_show.call_count == 1
 
 
 if __name__ == '__main__':

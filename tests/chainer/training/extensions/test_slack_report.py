@@ -9,10 +9,10 @@ import researchutils.chainer.training.extensions.slack_report as slack_report
 
 class TestSlackReport(object):
     def test_non_slack_client_instance(self):
-        invalid_slack_client = 'this is not a slackclient instance'
+        invalid_slack_client = -100
         channel = 'test channel'
         entries = ['main/loss']
-        kwargs = dict(slack_client=invalid_slack_client,
+        kwargs = dict(token_or_client=invalid_slack_client,
                       entries=entries,
                       channel=channel)
 
@@ -24,7 +24,7 @@ class TestSlackReport(object):
         join_channel_fail_client.api_call.return_value = "ng"
         channel = 'test channel'
         entries = ['main/loss']
-        kwargs = dict(slack_client=join_channel_fail_client,
+        kwargs = dict(token_or_client=join_channel_fail_client,
                       entries=entries,
                       channel=channel)
 
@@ -36,7 +36,7 @@ class TestSlackReport(object):
         mock_client.api_call.return_value = "ok"
         channel = 'test channel'
         entries = ['main/loss']
-        kwargs = dict(slack_client=mock_client,
+        kwargs = dict(token_or_client=mock_client,
                       entries=entries,
                       channel=channel)
 
@@ -58,7 +58,7 @@ class TestSlackReport(object):
         mock_client.api_call.return_value = "ok"
         channel = 'test channel'
         entries = ['main/loss']
-        kwargs = dict(slack_client=mock_client,
+        kwargs = dict(token_or_client=mock_client,
                       entries=entries,
                       channel=channel)
 
@@ -75,7 +75,7 @@ class TestSlackReport(object):
         mock_client.api_call.return_value = "ok"
         channel = 'test channel'
         entries = ['main/loss']
-        kwargs = dict(slack_client=mock_client,
+        kwargs = dict(token_or_client=mock_client,
                       entries=entries,
                       channel=channel)
 
