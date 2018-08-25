@@ -68,4 +68,3 @@ def animate(images, comparisons=None, is_gray=False, repeat=False, save_gif=Fals
         anim.save('anim.gif', writer='imagemagick')
     block = not auto_close
     plt.show(block=block)
-    plt.close()
