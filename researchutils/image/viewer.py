@@ -28,15 +28,38 @@ def show_images(images, titles=[], is_gray=False):
     plt.show()
 
 
-def animate(images, is_gray=False, save_gif=False):
+def animate(images, comparisons=None, is_gray=False, save_gif=False):
     fig = plt.figure()
-    im = create_window(images[0], is_gray=is_gray)
+    cm = None
+    cm_plt = None
+    im_plt = None
+    if comparisons:
+        im_plt = plt.subplot(1, 2, 1)
+        im = create_window(images[0], is_gray=is_gray)
+        cm_plt = plt.subplot(1, 2, 2)
+        cm = create_window(comparisons[0], is_gray=is_gray)
+    else:
+        im = create_window(images[0], is_gray=is_gray)
 
     def init():
-        im.set_data(images[0])
+        if cm:
+            im.set_data(images[0])
+            cm.set_data(comparisons[0])
+            im_plt.set_title('image frame: {}'.format(0))
+            cm_plt.set_title('comparison frame: {}'.format(0))
+        else:
+            im.set_data(images[0])
+            plt.title('frame: {}'.format(0))
 
     def update(index):
-        im.set_data(images[index])
+        if cm:
+            im.set_data(images[index])
+            cm.set_data(comparisons[index])
+            im_plt.set_title('image frame: {}'.format(index))
+            cm_plt.set_title('comparison frame: {}'.format(index))
+        else:
+            im.set_data(images[index])
+            plt.title('frame: {}'.format(index))
         return im
 
     anim = pltanim.FuncAnimation(
