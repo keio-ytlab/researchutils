@@ -75,6 +75,9 @@ def animate(images, comparisons=None, titles=[], is_gray=False, repeat=False,
         fig, update, init_func=init, frames=len(images), interval=10, repeat=repeat)
     if save_gif:
         anim.save('anim.gif', writer='imagemagick')
-    
+    if save_mp4:
+        Writer = pltanim.writers['ffmpeg']
+        writer = Writer(fps=15, bitrate=1800)
+        anim.save('anim.mp4', writer=writer)
     block = not auto_close
     plt.show(block=block)
