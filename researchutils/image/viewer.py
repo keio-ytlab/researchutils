@@ -28,7 +28,7 @@ def show_images(images, titles=[], is_gray=False):
     plt.show()
 
 
-def animate(images, comparisons=None, titles=[], is_gray=False, repeat=False,
+def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=False,
             save_gif=False, save_mp4=False, auto_close=False):
     fig = plt.figure()
     cm = None
@@ -72,12 +72,12 @@ def animate(images, comparisons=None, titles=[], is_gray=False, repeat=False,
         return im
 
     anim = pltanim.FuncAnimation(
-        fig, update, init_func=init, frames=len(images), interval=10, repeat=repeat)
+        fig, update, init_func=init, frames=len(images), interval=(1000//fps), repeat=repeat)
     if save_gif:
         anim.save('anim.gif', writer='imagemagick')
     if save_mp4:
         Writer = pltanim.writers['ffmpeg']
-        writer = Writer(fps=15, bitrate=1800)
+        writer = Writer(fps=fps, bitrate=1800)
         anim.save('anim.mp4', writer=writer)
     block = not auto_close
     plt.show(block=block)
