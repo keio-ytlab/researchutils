@@ -17,11 +17,12 @@ class GradClipLSTM(lstm.LSTM):
 
     def __init__(self, clip_min, clip_max):
         super(GradClipLSTM, self).__init__()
-        clip_min = clip_min if clip_min is not None else numpy.finfo(numpy.float32).min
-        clip_max = clip_max if clip_max is not None else numpy.finfo(numpy.float32).max
+        clip_min = clip_min if clip_min is not None else numpy.finfo(
+            numpy.float32).min
+        clip_max = clip_max if clip_max is not None else numpy.finfo(
+            numpy.float32).max
         self.clip_min = float(clip_min)
         self.clip_max = float(clip_max)
-        print('clip min: {}, max: {}'.format(clip_min, clip_max))
 
     def backward(self, inputs, grads):
         gc_prev, gx = super(GradClipLSTM, self).backward(inputs, grads)
