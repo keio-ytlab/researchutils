@@ -77,3 +77,14 @@ See below.
     │
     ...
 ```
+
+## Write documents
+Write documents of your new function/class/feature and explain what it does. <br/>
+Writing documents are hard but helps others understanding what you implemented and enables using it.
+
+### Style
+We use numpy style docstring. When writing the docs, follow numpy style.
+[See here](https://numpydoc.readthedocs.io/en/latest/) for details. 
+
+### Language
+Write your document in English.
