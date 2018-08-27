@@ -10,9 +10,7 @@ def create_window(image, is_gray=False):
 
 
 def show_image(image, title='', is_gray=False):
-    create_window(image, is_gray=is_gray)
-    plt.title(title)
-    plt.show()
+    show_images([image], titles=[title], is_gray=is_gray)
 
 
 def show_images(images, titles=[], is_gray=False):
@@ -43,18 +41,7 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
         im = create_window(images[0], is_gray=is_gray)
 
     def init():
-        if cm:
-            im.set_data(images[0])
-            cm.set_data(comparisons[0])
-            for i, title in enumerate(titles):
-                if i == 0:
-                    im_plt.set_title('{} frame: {}'.format(title, 0))
-                else:
-                    cm_plt.set_title('{} frame: {}'.format(title, 0))
-        else:
-            im.set_data(images[0])
-            if 0 < len(titles):
-                plt.title('{} frame: {}'.format(titles[0], 0))
+        update(0)
 
     def update(index):
         if cm:
