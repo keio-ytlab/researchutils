@@ -10,9 +10,7 @@ def create_window(image, is_gray=False):
 
 
 def show_image(image, title='', is_gray=False):
-    create_window(image, is_gray=is_gray)
-    plt.title(title)
-    plt.show()
+    show_images([image], titles=[title], is_gray=is_gray)
 
 
 def show_images(images, titles=[], is_gray=False):
