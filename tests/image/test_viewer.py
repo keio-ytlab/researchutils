@@ -20,13 +20,14 @@ class TestViewer(object):
     def test_show_image(self):
         with patch('matplotlib.pyplot.imshow') as mock_imshow:
             with patch('matplotlib.pyplot.title') as mock_title:
-                with patch('matplotlib.pyplot.show') as mock_show:
-                    image = np.ndarray(shape=(28, 28, 3))
-                    title = 'test'
-                    viewer.show_image(image=image, title=title)
-                    mock_imshow.assert_called_with(image)
-                    mock_title.assert_called_with(title)
-                    mock_show.assert_called_once()
+                with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        image = np.ndarray(shape=(28, 28, 3))
+                        title = 'test'
+                        viewer.show_image(image=image, title=title)
+                        mock_imshow.assert_called_with(image)
+                        mock_title.assert_called_with(title)
+                        mock_show.assert_called_once()
 
     def test_show_images(self):
         with patch('matplotlib.pyplot.imshow') as mock_imshow:
