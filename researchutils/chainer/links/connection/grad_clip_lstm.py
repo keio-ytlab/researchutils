@@ -11,7 +11,8 @@ from chainer import variable
 
 
 class GradClipLSTM(lstm.LSTM):
-    """Fully-connected LSTM layer with gradient clip before each gates.
+    """
+    Fully-connected LSTM layer with gradient clip before each gates.
     See: https://arxiv.org/abs/1308.0850
 
     For detail description of LSTM layer itself, check original LSTM implementation of chainer.
