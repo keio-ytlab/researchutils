@@ -6,6 +6,29 @@ def one_hot(indices,
             on_value=1,
             off_value=0,
             dtype=None):
+    """
+    Create one hot vector(s)
+
+    Parameters
+    -------
+    indices : list of int
+        list of index to set on_value in each vector
+    shape : tuple of int
+        Number of rows and arrays to create. Length of the shape must be 2.
+        shape must be in the form of (rows, array_num) 
+        and will create array_num vectors of shape (rows, 1)
+    on_value : int, default 1
+        value to set on given indices
+    off_value : int, default 0
+        value to set on fields other than given indices
+    dtype: numpy.dtype
+    
+    Returns
+    -------
+    one hot vectors : numpy.ndarray
+        matrix of given shape
+    """ 
+
     if not len(shape) == 2:
         raise ValueError('shape must have only rows and columns size(Should be a matrix or vector)')
     if dtype:
