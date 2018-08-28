@@ -6,12 +6,14 @@ from chainer.functions.activation.lstm import _extract_gates
 
 
 class GradClipLSTM(lstm.LSTM):
-    """Long short-term memory unit with forget gate and gradient clipping before each gates.
+    """
+    Long short-term memory unit with forget gate and gradient clipping before each gates.
     It has two inputs (c, x) and two outputs (c, h), where c indicates the cell
     state. x must have four times channels compared to the number of units.
 
     Gradient clipping is done during backward process
     and not before applying the gradient to weights.
+    
     See: https://arxiv.org/abs/1308.0850
     """
 
