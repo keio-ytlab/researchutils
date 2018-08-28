@@ -39,7 +39,7 @@ python setup.sh test
 ```
 
 # Documents
-You can find researchutils documentation [here](researchutils.readthedocs.io)
+You can find researchutils documentation [here](https://researchutils.readthedocs.io/)
 
 # Contribution guide
 New features and bug fixes are welcome. Send PRs. <br/>
