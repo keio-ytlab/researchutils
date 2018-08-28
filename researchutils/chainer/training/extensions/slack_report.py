@@ -4,6 +4,13 @@ from slackclient import SlackClient as slackclient_module
 
 
 class SlackReport(extension.Extension):
+    """
+    Sends learning status periodically to slack's channel
+
+    Basic behavior is same as chainer.training.extensions.PrintReport
+    The main difference is that this extension sends result to specified slack channel
+    """
+
     def __init__(self, token_or_client, entries, channel='general', log_report='LogReport'):
         if isinstance(token_or_client, slackclient_module):
             self._slack_client = token_or_client

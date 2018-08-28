@@ -3,6 +3,13 @@ from chainer.iterators.serial_iterator import SerialIterator
 
 
 class DecorableSerialIterator(SerialIterator):
+    """
+    SerialIterator which enables to configure dataset's end index
+    and preprocess dataset for given index before adding to batch
+
+    Preprocess procedure will be done on caller's thread
+    """
+
     def __init__(self, dataset, batch_size, repeat=True, shuffle=True, decor_fun=None, end_index=None):
         self.decor_fun = decor_fun
         self.end_index = end_index if end_index else len(dataset)

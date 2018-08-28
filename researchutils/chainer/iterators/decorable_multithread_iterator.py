@@ -5,6 +5,14 @@ import numpy
 import six
 
 class DecorableMultithreadIterator(MultithreadIterator):
+    """
+    MultithreadIterator which enables to configure dataset's end index
+    and preprocess dataset for given index before adding to batch
+
+    Preprocess procedure will be done in parallel with multi thread
+    to preload batch
+    """
+
     def __init__(self, dataset, batch_size, repeat=True, shuffle=True,
                  n_threads=1, decor_fun=None, end_index=None):
         self.decor_fun = decor_fun

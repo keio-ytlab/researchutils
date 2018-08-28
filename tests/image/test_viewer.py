@@ -11,10 +11,10 @@ class TestViewer(object):
     def test_create_window(self):
         with patch('matplotlib.pyplot.imshow') as mock_imshow:
             image = np.ndarray(shape=(28, 28, 3))
-            viewer.create_window(image=image)
+            viewer._create_window(image=image)
             mock_imshow.assert_called_with(image)
 
-            viewer.create_window(image=image, is_gray=True)
+            viewer._create_window(image=image, is_gray=True)
             mock_imshow.assert_called_with(image, cmap='gray')
 
     def test_show_image(self):

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as pltanim
 
 
-def create_window(image, is_gray=False):
+def _create_window(image, is_gray=False):
     if is_gray:
         return plt.imshow(image, cmap='gray')
     else:
@@ -10,10 +10,36 @@ def create_window(image, is_gray=False):
 
 
 def show_image(image, title='', is_gray=False):
+    """
+    Display given image
+
+    Parameters
+    -------
+    image : numpy.ndarray
+        Image to display
+    title : string
+        Title of the image to display
+    is_gray : bool
+        Weather given image is grayscale or colored
+        True if image is grayscale
+    """
     show_images([image], titles=[title], is_gray=is_gray)
 
 
 def show_images(images, titles=[], is_gray=False):
+    """
+    Display given image
+
+    Parameters
+    -------
+    images : list of numpy.ndarray
+        Images to display
+    titles : list of string
+        Titles for each image to display
+    is_gray : bool
+        Weather given images are grayscale or colored
+        True if images are grayscale
+    """
     num_images = len(images)
     num_titles = len(titles)
     if not num_images == num_titles:
@@ -21,24 +47,50 @@ def show_images(images, titles=[], is_gray=False):
             num_images, num_titles))
     for i in range(len(images)):
         plt.subplot(1, num_images, i + 1)
-        create_window(images[i], is_gray=is_gray)
+        _create_window(images[i], is_gray=is_gray)
         plt.title(titles[i])
     plt.show()
 
 
 def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=False,
             save_gif=False, save_mp4=False, auto_close=False):
+    """
+    Animate list of images
+
+    Parameters
+    -------
+    images : list of numpy.ndarray
+        Images to display
+    comparisons : list of numpy.ndarray
+        Comparison images to display (Optional)
+    titles : list of string
+        Titles for each animation
+    is_gray : bool
+        Weather given images are grayscale or colored
+        True if images are grayscale
+    fps : int
+        Number of frames to display in 1 second.
+        Abbreviation of "frame per second"
+    repeat: bool
+        Repeat animation when reaches end of images
+    save_gif : bool
+        Save animation as gif image
+    save_mp4 : bool
+        Save animation as mp4
+    auto_close : bool
+        Close animation window after finish animating
+    """
     fig = plt.figure()
     cm = None
     cm_plt = None
     im_plt = None
     if comparisons:
         im_plt = plt.subplot(1, 2, 1)
-        im = create_window(images[0], is_gray=is_gray)
+        im = _create_window(images[0], is_gray=is_gray)
         cm_plt = plt.subplot(1, 2, 2)
-        cm = create_window(comparisons[0], is_gray=is_gray)
+        cm = _create_window(comparisons[0], is_gray=is_gray)
     else:
-        im = create_window(images[0], is_gray=is_gray)
+        im = _create_window(images[0], is_gray=is_gray)
 
     def init():
         update(0)
