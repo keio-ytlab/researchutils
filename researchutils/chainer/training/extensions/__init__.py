@@ -1,0 +1,1 @@
+from researchutils.chainer.training.extensions import slack_report
