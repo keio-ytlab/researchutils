@@ -1,1 +1,3 @@
 from researchutils.chainer.functions.loss.average_k_step_squared_error import average_k_step_squared_error
+from researchutils.chainer.functions.activation.grad_clip_lstm import grad_clip_lstm
+from researchutils.chainer.functions.activation.grad_clip_lstm import GradClipLSTM
