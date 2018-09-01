@@ -135,7 +135,7 @@ def prepare_output_dir(base_dir, args, time_format='%Y-%m-%d-%H%M%S'):
     args_file_path = os.path.join(outdir, 'args.txt')
     if isinstance(args, argparse.Namespace):
         args = vars(args)
-    write_text_to_file(args_file_path, args)
+    write_text_to_file(args_file_path, json.dumps(args))
 
     # Save the command
     argv_file_path = os.path.join(outdir, 'command.txt')
