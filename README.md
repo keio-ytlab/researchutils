@@ -10,7 +10,7 @@ Python utilities for deep learning research
 ## To install the package
 
 ```bash
-python setup.sh install
+python setup.py install
 ```
 
 or if you prefer using pip
@@ -24,7 +24,7 @@ pip install .
 It is recommended to use develop instead of install option to reflect changes in the directory
 
 ```bash
-python setup.sh develop
+python setup.py develop
 ```
 
 or if you prefer using pip
@@ -35,7 +35,7 @@ pip install -e .
 
 ## To run tests
 ```bash
-python setup.sh test
+python setup.py test
 ```
 
 # Documents
