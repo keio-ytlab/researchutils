@@ -42,3 +42,23 @@ def load_model(path, model):
     if not files.file_exists(path):
         return model
     return chainer.serializers.load_npz(path, model)
+
+
+def load_snapshot(path, trainer):
+    """
+    Load snapshot from the npz file of given path
+
+    Parameters
+    ------
+    path : string
+        path of the saved model
+
+    Returns
+    ------
+    trainer : chainer.Trainer
+        trainer with associated objects initialized with loaded file
+        if the file does not exist, then will return given trainer without any changes
+    """
+    if not files.file_exists(path):
+        return trainer
+    return chainer.serializers.load_npz(path, trainer)
