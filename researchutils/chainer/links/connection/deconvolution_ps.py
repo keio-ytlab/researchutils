@@ -9,6 +9,36 @@ class DeconvolutionPS(chainer.Chain):
     """
     Two dimensional deconvolution layer with convolutional layer followed by pixel shuffler
     See: https://arxiv.org/abs/1609.05158
+
+    This layer will automatically pad the input with zeros if height and width of given input
+    does not have enough size to upscale
+
+    Parameters
+    -------
+    in_channels : int
+        number of input channels
+    out_channels : int 
+        number of output channels
+    ksize: int or tuple of int
+        height and width of the kernel (aka filter)
+    stride: int or tuple of int
+        step size of kernel to x and y direction
+    pad: int of tuple of int
+        padding size to add to input image
+    nobias: bool
+        ``True`` to add bias term while convolution
+    outsize: tuple of int
+        size of upscaled image
+    initialW: chainer.initializer
+        initializer to initialize weights used by convolution
+    initial_bias: chainer.initializer
+        initializer to initialize bias used by convolution
+        If ``None``, the bias will be initialized to zero
+
+    Raises
+    -------
+    ValueError
+        ksize is not divisible by given stride
     """
 
     def __init__(self, in_channels, out_channels, ksize, stride=1, pad=0, nobias=False, outsize=None, initialW=None, initial_bias=None, **kwargs):
@@ -19,7 +49,7 @@ class DeconvolutionPS(chainer.Chain):
         kh, kw = self._pair(ksize)
         if kh % r is not 0 or kw % r is not 0:
             raise ValueError(
-                'ksize must be divisible by r. {} % {} != 0'.format(ksize, r))
+                'ksize must be divisible by stride. {} % {} != 0'.format(ksize, r))
         self.kh, self.kw = kh // r, kw // r
         self.sy, self.sx = (1, 1)
         self.ph, self.pw = (None, None)
