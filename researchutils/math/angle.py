@@ -1,41 +1,5 @@
 import math
-import numpy as np
 import copy 
-
-def rad_to_deg(rad_angle):
-    '''
-    Translate rad to deg
-
-    Parameters
-    -------
-    angle : float or numpy.ndarray [rad]
-    
-    Returns
-    -------
-    deg_angle : float or numpy.ndarray [deg]
-    '''
-
-    deg_angle = 180.0 * rad_angle / math.pi
-
-    return deg_angle
-
-def deg_to_rad(deg_angle):
-    '''
-    Translate deg to radian
-
-    Parameters
-    -------
-    angle : float or numpy.ndarray [deg]
-        unit is radians
-        
-    Returns
-    -------
-    rad_angle : float or numpy.ndarray [rad]
-        correct range angle
-    '''
-    rad_angle = math.pi * deg_angle / 180.0
-
-    return rad_angle
 
 def angle_range_corrector(angle, MAX=math.pi, MIN=-math.pi):
     '''
