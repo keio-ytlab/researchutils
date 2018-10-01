@@ -1,34 +1,37 @@
 import math
-import copy 
+import numpy as np
 
-def angle_range_corrector(angle, MAX=math.pi, MIN=-math.pi):
+def fit_angle_in_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
     '''
     Check angle range and correct the range
 
     Parameters
     -------
-    angle : numpy.ndarray 
+    angle : array
         unit is radians
-    MAX : float
-        maximum of range [rad] , default math.pi
-    MIN : float
-        minimum of range [rad], default -math.pi
+    min_angle : float 
+        maximum of range in radians, default 0.0
+    max_angle : float 
+        minimum of range in radians, default 2 * math.pi
     Returns
     -------
     correct_angle : numpy.ndarray
         correct range angle
     '''
+    if max_angle < min_angle:
+        raise ValueError('max angle must be greater than min angle')
+    if (max_angle - min_angle) < 2.0 * math.pi:
+        raise ValueError('difference between max_angle and min_angle must be greater than 2.0 * pi')
     
-    correct_angle = copy.deepcopy(angle).flatten()
+    output = np.array(angles)
+    output_shape = output.shape
 
-    for i in range(len(correct_angle)):
-        if correct_angle[i] > MAX:
-            while correct_angle[i] > MAX:
-                correct_angle[i] -=  2 * math.pi
-        elif correct_angle[i] < MIN:
-            while correct_angle[i] < MIN:
-                correct_angle[i] +=  2 * math.pi
-    
-    correct_angle = correct_angle.reshape(angle.shape)
-    
-    return correct_angle
+    output = output.flatten()
+    output -= min_angle
+    output %= 2 * math.pi
+    output += 2 * math.pi
+    output %= 2 * math.pi
+    output += min_angle
+
+    output = np.minimum(max_angle, np.maximum(min_angle, output))
+    return output.reshape(output_shape)
