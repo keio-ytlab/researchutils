@@ -7,12 +7,13 @@ def fit_angle_in_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
 
     Parameters
     -------
-    angle : array
+    angle : array-like
         unit is radians
     min_angle : float, optional
         maximum of range in radians, default 0.0
     max_angle : float, optional
         minimum of range in radians, default 2 * math.pi
+    
     Returns
     -------
     correct_angle : numpy.ndarray
