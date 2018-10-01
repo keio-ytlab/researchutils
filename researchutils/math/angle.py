@@ -9,9 +9,9 @@ def fit_angle_in_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
     -------
     angle : array
         unit is radians
-    min_angle : float 
+    min_angle : float, optional
         maximum of range in radians, default 0.0
-    max_angle : float 
+    max_angle : float, optional
         minimum of range in radians, default 2 * math.pi
     Returns
     -------
