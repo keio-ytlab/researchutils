@@ -84,7 +84,7 @@ See below.
 
 ## Write documents
 Write documents of your new function/class/feature and explain what it does. <br/>
-Writing documents are hard but helps others understanding what you implemented and enables using it.
+Writing documents is hard but helps others understanding what you implemented and how to use it.
 
 ### Style
 We use numpy style docstring. When writing the docs, follow numpy style.
