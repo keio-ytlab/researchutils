@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-def fit_angle_in_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
+def fit_angle_in_rad_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
     '''
     Check angle range and correct the range
 
