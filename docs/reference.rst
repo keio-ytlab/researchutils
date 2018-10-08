@@ -9,3 +9,4 @@ API Reference
    chainer
    files
    image
+   math
