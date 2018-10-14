@@ -55,14 +55,16 @@ def show_images(images, title='', comparisons=None, comparison_title='', is_gray
     if vertical:
         rows, columns = columns, rows
     for i in range(num_images):
-        plt.subplot(rows, columns, i + 1)
+        index = (i * columns + 1) if vertical else (i + 1) 
+        plt.subplot(rows, columns, index)
         _create_window(images[i], is_gray=is_gray)
         if num_images == 1:
             plt.title(title)
         else:
             plt.title('{} {}'.format(title, i))
     for i in range(num_comparisons):
-        plt.subplot(rows, columns, i + 1 + max(num_images, num_comparisons))
+        index = (i * columns + 2) if vertical else (i + 1 + max(num_images, num_comparisons)) 
+        plt.subplot(rows, columns, index)
         _create_window(comparisons[i], is_gray=is_gray)
         if num_comparisons == 1:
             plt.title(comparison_title)
