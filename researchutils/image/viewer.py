@@ -20,7 +20,7 @@ def show_image(image, title='', is_gray=False):
     title : string
         Title of the image to display
     is_gray : bool
-        Weather given image is grayscale or colored
+        Whether given image is grayscale or colored
         True if image is grayscale
     """
     show_images([image], titles=[title], is_gray=is_gray)
@@ -37,7 +37,7 @@ def show_images(images, titles=[], is_gray=False):
     titles : list of string
         Titles for each image to display
     is_gray : bool
-        Weather given images are grayscale or colored
+        Whether given images are grayscale or colored
         True if images are grayscale
     """
     num_images = len(images)
@@ -66,7 +66,7 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
     titles : list of string
         Titles for each animation
     is_gray : bool
-        Weather given images are grayscale or colored
+        Whether given images are grayscale or colored
         True if images are grayscale
     fps : int
         Number of frames to display in 1 second.
