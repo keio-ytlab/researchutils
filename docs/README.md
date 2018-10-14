@@ -16,7 +16,7 @@ sphinx-apidoc -f -o ./_build/docs ../researchutils
 ## Checking api documents locally with your browser
 
 ```python
-sphinx-autobuild <document dir> <output dir>/html
+sphinx-autobuild . _build/html
 ```
 
 After typing above, if build is successful, below message will be displayed in your terminal
