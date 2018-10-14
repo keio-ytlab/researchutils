@@ -23,10 +23,10 @@ def show_image(image, title='', is_gray=False):
         Whether given image is grayscale or colored
         True if image is grayscale
     """
-    show_images([image], titles=[title], is_gray=is_gray)
+    show_images([image], title=title, is_gray=is_gray)
 
 
-def show_images(images, titles=[], is_gray=False):
+def show_images(images, title='', comparisons=None, comparison_title='', is_gray=False, vertical=False):
     """
     Display given image
 
@@ -34,21 +34,40 @@ def show_images(images, titles=[], is_gray=False):
     -------
     images : list of numpy.ndarray
         Images to display
-    titles : list of string
-        Titles for each image to display
+    title : string
+        Title of each image to display. If length of images is greater than 1,
+        index of each image will be appended to the tail of title.
+    comaprisons : list of numpy.ndarray
+        Comparison images to display
+    comaprison_title : list of numpy.ndarray
+        Title of each comparison image to display. If length of comparisons is greater than 1,
+        index of each image will be appended to the tail of title.
     is_gray : bool
         Whether given images are grayscale or colored
         True if images are grayscale
+    vertical : bool
+        Display comparisons vertically
     """
     num_images = len(images)
-    num_titles = len(titles)
-    if not num_images == num_titles:
-        raise ValueError('number of images and titles does not match! {} != {}'.format(
-            num_images, num_titles))
-    for i in range(len(images)):
-        plt.subplot(1, num_images, i + 1)
+    num_comparisons = 0 if comparisons is None else len(comparisons)
+    rows = 1 if comparisons is None else 2
+    columns = max(num_images, num_comparisons)
+    if vertical:
+        rows, columns = columns, rows
+    for i in range(num_images):
+        plt.subplot(rows, columns, i + 1)
         _create_window(images[i], is_gray=is_gray)
-        plt.title(titles[i])
+        if num_images == 1:
+            plt.title(title)
+        else:
+            plt.title('{} {}'.format(title, i))
+    for i in range(num_comparisons):
+        plt.subplot(rows, columns, i + 1 + max(num_images, num_comparisons))
+        _create_window(comparisons[i], is_gray=is_gray)
+        if num_comparisons == 1:
+            plt.title(comparison_title)
+        else:
+            plt.title('{} {}'.format(comparison_title, i))
     plt.show()
 
 
