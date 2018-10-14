@@ -37,22 +37,32 @@ class TestViewer(object):
                         image1 = np.ndarray(shape=(28, 28, 3))
                         image2 = np.ndarray(shape=(28, 28, 3))
                         images = [image1, image2]
-                        title1 = 'test1'
-                        title2 = 'test2'
-                        titles = [title1, title2]
-                        viewer.show_images(images=images, titles=titles)
+                        title = 'test'
+                        viewer.show_images(images=images, title=title)
                         assert mock_imshow.call_count == len(images)
-                        assert mock_title.call_count == len(titles)
+                        assert mock_title.call_count == len(images)
                         mock_show.assert_called_once()
 
-    def test_show_images_wrong_length(self):
-        image1 = np.ndarray(shape=(28, 28, 3))
-        image2 = np.ndarray(shape=(28, 28, 3))
-        images = [image1, image2]
-        title1 = 'test1'
-        titles = [title1]
-        with pytest.raises(ValueError):
-            viewer.show_images(images=images, titles=titles)
+    def test_show_images_with_comparisons(self):
+        with patch('matplotlib.pyplot.imshow') as mock_imshow:
+            with patch('matplotlib.pyplot.title') as mock_title:
+                with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        image1 = np.ndarray(shape=(28, 28, 3))
+                        image2 = np.ndarray(shape=(28, 28, 3))
+                        images = [image1, image2]
+                        title = 'test'
+
+                        image3 = np.ndarray(shape=(28, 28, 3))
+                        image4 = np.ndarray(shape=(28, 28, 3))
+                        comparisons = [image3, image4]
+                        comparison_title = 'comparisons'
+
+                        viewer.show_images(
+                            images=images, title=title, comparisons=comparisons, comparison_title=comparison_title)
+                        assert mock_imshow.call_count == len(images) + len(comparisons)
+                        assert mock_title.call_count == len(images) + len(comparisons)
+                        mock_show.assert_called_once()
 
     def test_animate(self):
         with patch('matplotlib.image.AxesImage') as mock_axes:
