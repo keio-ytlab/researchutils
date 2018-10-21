@@ -1,5 +1,5 @@
 [![Master Build Status](https://api.travis-ci.org/yuishihara/researchutils.svg?branch=master)](https://api.travis-ci.org/yuishihara/researchutils.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/yuishihara/researchutils/badge.svg?branch=master)](https://coveralls.io/github/yuishihara/researchutils?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/keio-ytlab/researchutils/badge.svg?branch=master)](https://coveralls.io/github/keio-ytlab/researchutils?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/researchutils/badge/?version=latest)](https://researchutils.readthedocs.io/en/latest/?badge=latest)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
