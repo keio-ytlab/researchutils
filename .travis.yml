@@ -15,3 +15,9 @@ script:
 
 after_success:
   - coveralls
+
+notifications:
+  slack:
+    secure: lG20d6ABcpnVzKyI+fV1q5TgvmesGNwXhhvCIret1uPoDNTeN/J3qhaayPkK9kTX7PCG0mWTWHceYBDynsmfXhQKISY9oEiivKqdMKzgb/L+yT5Zafl5bFKyKLLtzunFng2SECHyM5Lr4RHH3CAI6yJJ4ZJhSJw+ueFiKIpBBvLbNe/ZVb1VsqFGelLZ7e7ToQJqA/foXrQw37PDHYiz2WIrOiAL8HAc6CeB593xnbEiEttWBa5nHagKkwW25R+DMK/buZpGUyeNxzBXUPnPs4Ml+VI06yxHtGjhdaxfLQZQ6q+NCoaAPxprxkfUe69NqBV9Vakr+I8jiNt/AkrcCpn+kgqVK9okBLiV1tOjxnetslfZHGzTxGNu+fKQTQEOAuKG8+z3OEZzTb9imPK3t1z5RXnXCXj33tY49wwOBxF+CFDMg5KIWPDFR0+fv5cdkXon4xUVDSlADHyZje9L0rYPY6KQ/Oa4e2g2j9Ps+V4fC6361ZVVl3RxwBdLSIN2wosP3pBfFeRFe0xJ0KIpizSaz96O9aMk6pbvkd7G5MMiP/tIN7eu+xwXXCBKMr3B9U/wB161BAAEBJyN9HdyaDt3vDP2l72ayv7O9MXYRv+jB69UYOaDKda0AS1Im6Z9eNzDZ4w8e9tL7tM5ca/W3GPxpy6AFAmGwZO+AZTKzuQ=
+    on_success: changed
+    on_failure: always
