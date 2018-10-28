@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as pltanim
 
+import numpy as np
+
 
 def _create_window(image, is_gray=False):
     if is_gray:
@@ -55,7 +57,7 @@ def show_images(images, title='', comparisons=None, comparison_title='', is_gray
     if vertical:
         rows, columns = columns, rows
     for i in range(num_images):
-        index = (i * columns + 1) if vertical else (i + 1) 
+        index = (i * columns + 1) if vertical else (i + 1)
         plt.subplot(rows, columns, index)
         _create_window(images[i], is_gray=is_gray)
         if num_images == 1:
@@ -63,7 +65,8 @@ def show_images(images, title='', comparisons=None, comparison_title='', is_gray
         else:
             plt.title('{} {}'.format(title, i))
     for i in range(num_comparisons):
-        index = (i * columns + 2) if vertical else (i + 1 + max(num_images, num_comparisons)) 
+        index = (i * columns + 2) if vertical else (i +
+                                                    1 + max(num_images, num_comparisons))
         plt.subplot(rows, columns, index)
         _create_window(comparisons[i], is_gray=is_gray)
         if num_comparisons == 1:
@@ -83,7 +86,7 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
     images : list of numpy.ndarray
         Images to display
     comparisons : list of numpy.ndarray
-        Comparison images to display (Optional)
+        Comparison images or multiple list of comparison images to display (Optional)
     titles : list of string
         Titles for each animation
     is_gray : bool
@@ -102,14 +105,29 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
         Close animation window after finish animating
     """
     fig = plt.figure()
-    cm = None
-    cm_plt = None
+    cm = []
+    cm_plt = []
+    comparison_num = 0
     im_plt = None
     if comparisons:
-        im_plt = plt.subplot(1, 2, 1)
+        images = np.array(images)
+        images_dim = images.ndim
+        comparisons = np.array(comparisons)
+        comparison_dim = comparisons.ndim
+        if images_dim == comparison_dim:
+            comparisons = np.array([comparisons])
+        elif 1 < comparison_dim - images_dim:
+            raise ValueError(
+                "Unsupported images and comparisons dimension was given")
+
+        comparison_num = comparisons.shape[0]
+        row_num = 1 + comparison_num
+        im_plt = plt.subplot(1, row_num, 1)
         im = _create_window(images[0], is_gray=is_gray)
-        cm_plt = plt.subplot(1, 2, 2)
-        cm = _create_window(comparisons[0], is_gray=is_gray)
+
+        for index in range(comparison_num):
+            cm_plt.append(plt.subplot(1, row_num, 2 + index))
+            cm.append(_create_window(comparisons[0][0], is_gray=is_gray))
     else:
         im = _create_window(images[0], is_gray=is_gray)
 
@@ -117,14 +135,17 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
         update(0)
 
     def update(index):
-        if cm:
+        if len(cm) != 0:
             im.set_data(images[index])
-            cm.set_data(comparisons[index])
+
+            for i in range(comparison_num):
+                cm[i].set_data(comparisons[i][index])
+
             for i, title in enumerate(titles):
                 if i == 0:
                     im_plt.set_title('{} frame: {}'.format(title, index))
                 else:
-                    cm_plt.set_title('{} frame: {}'.format(title, index))
+                    cm_plt[i-1].set_title('{} frame: {}'.format(title, index))
         else:
             im.set_data(images[index])
             if 0 < len(titles):
