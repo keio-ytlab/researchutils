@@ -11,13 +11,11 @@ class TestAngle(object):
         correct_angles = fit_angle_in_rad_range(angles)
 
         for i, angle in enumerate(correct_angles):
-            if angle > 2 * math.pi:
+            if angle < 0.0 or angle > 2 * math.pi:
                 assert False
-            elif angle < 0.0:
-                assert False
-            elif round(math.cos(float(angle)), 5) != round(math.cos(angles[i]), 5):
-                assert False
-            elif round(math.sin(float(angle)), 5) != round(math.sin(angles[i]), 5):
+            
+            if round(math.cos(float(angle)), 5) != round(math.cos(angles[i]), 5) or\
+               round(math.sin(float(angle)), 5) != round(math.sin(angles[i]), 5):
                 assert False
 
     def test_fit_angle_in_rad_range_matrix(self):
@@ -26,13 +24,11 @@ class TestAngle(object):
 
         for i in range(correct_angles.shape[0]):
             for j, angle in enumerate(correct_angles[i]):
-                if angle > 2 * math.pi:
+                if angle < 0.0 or angle > 2 * math.pi:
                     assert False
-                elif angle < 0.0:
-                    assert False
-                elif round(math.cos(float(angle)), 5) != round(math.cos(angles[i, j]), 5):
-                    assert False
-                elif round(math.sin(float(angle)), 5) != round(math.sin(angles[i, j]), 5):
+                
+                if round(math.cos(float(angle)), 5) != round(math.cos(angles[i, j]), 5) or\
+                   round(math.sin(float(angle)), 5) != round(math.sin(angles[i, j]), 5):
                     assert False
 
     def test_fit_angle_in_diff_rad_range_matrix(self):
