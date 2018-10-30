@@ -55,8 +55,3 @@ def standardize(data):
     standardized_data = (data - ave_data) / var_data
     
     return standardized_data.reshape(data_shape)
-
-
-
-
-
