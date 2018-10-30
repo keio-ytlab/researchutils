@@ -2,7 +2,7 @@ import math
 import numpy as np
 
 def fit_angle_in_rad_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
-    '''
+    """
     Check angle range and correct the range
 
     Parameters
@@ -18,7 +18,7 @@ def fit_angle_in_rad_range(angles, min_angle=0.0, max_angle=(2 * math.pi)):
     -------
     correct_angle : numpy.ndarray
         correct range angle
-    '''
+    """
     if max_angle < min_angle:
         raise ValueError('max angle must be greater than min angle')
     if (max_angle - min_angle) < 2.0 * math.pi:
