@@ -14,14 +14,11 @@ class UnmodifiableDecorableList(list):
     def __getitem__(self, key):
         if isinstance(key, slice):
             start = key.start or 0
-            stop = key.stop or 0
-            if self.end_index is not None:
-                stop = stop if stop < self.end_index else self.end_index
+            stop = key.stop if key.stop < self.end_index else self.end_index
             step = key.step or 1
             return [self._get_decorated_data(self.items, index) for index in range(start, stop, step)]
         else:
             return self._get_decorated_data(self.items, key)
-
 
     def _get_decorated_data(self, dataset, index):
         if self.decor_fun is None:
