@@ -20,12 +20,6 @@ class UnmodifiableDecorableList(list):
         else:
             return self._get_decorated_data(self.items, key)
 
-    def _get_decorated_data(self, dataset, index):
-        if self.decor_fun is None:
-            return dataset[index]
-        else:
-            return self.decor_fun(dataset, index)
-
     def insert(self, item):
         raise NotImplementedError('This list is unmodifiable!!')
 
@@ -43,3 +37,9 @@ class UnmodifiableDecorableList(list):
 
     def pop(self, index):
         raise NotImplementedError('This list is unmodifiable!!')
+
+    def _get_decorated_data(self, dataset, index):
+        if self.decor_fun is None:
+            return dataset[index]
+        else:
+            return self.decor_fun(dataset, index)
