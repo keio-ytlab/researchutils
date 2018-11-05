@@ -9,7 +9,7 @@ class UnmodifiableDecorableList(list):
     -------
     items : iterable
         target items to be saved as list
-    decor_fun : function or None
+    decor_fun : callable or None
         function to apply everytime __getitem__ is called
     end_index : integer or None
         end index of the list (exclusive) to announce to the user of this list
