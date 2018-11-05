@@ -20,6 +20,10 @@ class UnmodifiableDecorableList(list):
         else:
             return self._get_decorated_data(self.items, key)
 
+    # For python 2 compatibility 
+    def __getslice__(self, i, j):
+        return self.__getitem__(slice(i, j))
+
     def insert(self, item):
         raise NotImplementedError('This list is unmodifiable!!')
 
