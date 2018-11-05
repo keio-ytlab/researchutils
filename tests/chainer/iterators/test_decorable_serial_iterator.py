@@ -104,6 +104,7 @@ class TestDecorableSerialIterator(object):
                 assert batch[index] == dataset[times * batch_size + index] + 1
 
     def test_end_index(self):
+        print('testing end index')
         dataset = [data for data in range(50)]
         batch_size = 16
         iterator = decorable_serial_iterator.DecorableSerialIterator(dataset=dataset,
@@ -115,7 +116,7 @@ class TestDecorableSerialIterator(object):
         batch = iterator.next()
         assert len(batch) == batch_size
 
-        # Since end index is 20 second batch should contain only 20 - 16(batch_size) items
+        # Since end index is 20, batch should contain only 20 - 16(batch_size) items
         batch = iterator.next()
         assert len(batch) == 4
 
