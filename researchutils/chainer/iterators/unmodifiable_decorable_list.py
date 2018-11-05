@@ -9,8 +9,6 @@ class UnmodifiableDecorableList(list):
         self.items = items
 
     def __len__(self):
-        if self.end_index is None:
-            return len(self.items)
         return self.end_index
 
     def __getitem__(self, key):
