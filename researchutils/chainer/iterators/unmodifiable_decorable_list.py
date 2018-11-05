@@ -2,6 +2,22 @@ from builtins import range
 
 
 class UnmodifiableDecorableList(list):
+    """
+    Unmodifiable list which can decorate items in the list by providing decor_fun
+
+    Parameters
+    -------
+    items : iterable
+        target items to be saved as list
+    decor_fun : function or None
+        function to apply everytime __getitem__ is called
+    end_index : integer or None
+        end index of the list (exclusive) to announce to the user of this list
+        it is not necessary to be actual end_index of the given items.
+        if end_index is None, then the length of this list will be same as length of given items
+ 
+    """
+
     def __init__(self, items, decor_fun=None, end_index=None):
         super(UnmodifiableDecorableList, self).__init__(items)
         self.decor_fun = decor_fun
@@ -20,7 +36,7 @@ class UnmodifiableDecorableList(list):
         else:
             return self._get_decorated_data(self.items, key)
 
-    # For python 2 compatibility 
+    # For python 2 compatibility
     def __getslice__(self, i, j):
         return self.__getitem__(slice(i, j))
 
@@ -36,7 +52,7 @@ class UnmodifiableDecorableList(list):
     def extend(self, items):
         raise NotImplementedError('This list is unmodifiable!!')
 
-    def sort(self, key, reverse):
+    def sort(self, key=None, reverse=False):
         raise NotImplementedError('This list is unmodifiable!!')
 
     def pop(self, index):
