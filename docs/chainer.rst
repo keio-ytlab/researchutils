@@ -22,6 +22,11 @@ Iterators
 
 .. autoclass:: researchutils.chainer.iterators.decorable_serial_iterator.DecorableSerialIterator
 
+.. autoclass:: researchutils.chainer.iterators.decorable_multiprocess_iterator.DecorableMultiprocessIterator
+
+.. autoclass:: researchutils.chainer.iterators.unmodifiable_decorable_list.UnmodifiableDecorableList
+
+
 Connection links
 =======================
 

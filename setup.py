@@ -1,7 +1,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-install_requires = ['numpy', 'chainer', 'slackclient', 'matplotlib<=2.2.3', 'six']
+install_requires = ['numpy', 'chainer', 'slackclient', 'matplotlib<=2.2.3', 'six', 'future']
 tests_require = ['pytest>=3.2.0', 'mock']
 setup_requires = ["pytest-runner"]
 
