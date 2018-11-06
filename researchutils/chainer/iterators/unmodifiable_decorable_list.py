@@ -8,12 +8,12 @@ class UnmodifiableDecorableList(list):
     Parameters
     -------
     items : iterable
-        target items to be saved as list
+        items of the list
     decor_fun : callable or None
         function to apply everytime __getitem__ is called
     end_index : integer or None
         length of the list (exclusive) to announce to the user of this list
-        it is not necessary to be actual end_index of the given items.
+        can be same or smaller than the length of the given items.
         if end_index is None, then the length of this list will be same as length of given items
 
     """
