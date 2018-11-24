@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import sys
+import six
 import six.moves.cPickle as pickle
 
 
@@ -100,13 +101,16 @@ def load_pickle(file_path):
     -------
     file_path : string
         Path of the file to load pickled data
-    
+
     Returns
     -------
     data : data pickled in file
     """
     with open(file_path, 'rb') as f:
-        return pickle.load(f)
+        if six.PY2:
+            return pickle.load(f)
+        else:
+            return pickle.load(f, encoding='bytes')
 
 
 def prepare_output_dir(base_dir, args, time_format='%Y-%m-%d-%H%M%S'):
@@ -122,11 +126,11 @@ def prepare_output_dir(base_dir, args, time_format='%Y-%m-%d-%H%M%S'):
         Arguments when the python script was called
     time_format : string
         Datetime format string for naming directory to save data
-    
+
     Returns
     -------
     out_dir : directory to save data
-    """ 
+    """
     time_str = datetime.datetime.now().strftime(time_format)
     outdir = os.path.join(base_dir, time_str)
     create_dir_if_not_exist(outdir)
