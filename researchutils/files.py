@@ -106,7 +106,7 @@ def load_pickle(file_path):
     data : data pickled in file
     """
     with open(file_path, 'rb') as f:
-        return pickle.load(f)
+        return pickle.load(f, encoding='bytes')
 
 
 def prepare_output_dir(base_dir, args, time_format='%Y-%m-%d-%H%M%S'):
