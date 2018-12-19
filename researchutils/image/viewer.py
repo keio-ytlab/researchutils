@@ -162,7 +162,7 @@ def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images
     if images_per_row is None:
         images_per_row = images_num
     images_per_row = min(images_num, images_per_row)
-    row_num = math.ceil(images_num / images_per_row)
+    row_num = int(math.ceil(images_num / images_per_row))
     col_num = images_per_row
     frame_num = len(images[0])
     for row in range(row_num):
