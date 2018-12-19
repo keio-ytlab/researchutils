@@ -3,6 +3,8 @@ import matplotlib.animation as pltanim
 
 import numpy as np
 
+import math
+
 
 def _create_window(image, is_gray=False):
     if is_gray:
@@ -104,56 +106,84 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
     auto_close : bool
         Close animation window after finish animating
     """
-    fig = plt.figure()
-    cm = []
-    cm_plt = []
-    comparison_num = 0
-    im_plt = None
+    images_list = [images]
+    comparison_list = []
     if comparisons:
         images = np.array(images)
         images_dim = images.ndim
         comparisons = np.array(comparisons)
         comparison_dim = comparisons.ndim
         if images_dim == comparison_dim:
-            comparisons = np.array([comparisons])
+            comparison_list = [comparisons]
         elif 1 < comparison_dim - images_dim:
             raise ValueError(
                 "Unsupported images and comparisons dimension was given")
+        else:
+            comparison_list = comparisons
+    images_list.extend(comparison_list)
+    animate_in_matrix_form(images=images_list, titles=titles, is_gray=is_gray, fps=fps,
+                           images_per_row=len(images_list), repeat=repeat, save_gif=save_gif,
+                           save_mp4=save_mp4, auto_close=auto_close)
 
-        comparison_num = comparisons.shape[0]
-        row_num = 1 + comparison_num
-        im_plt = plt.subplot(1, row_num, 1)
-        im = _create_window(images[0], is_gray=is_gray)
 
-        for index in range(comparison_num):
-            cm_plt.append(plt.subplot(1, row_num, 2 + index))
-            cm.append(_create_window(comparisons[0][0], is_gray=is_gray))
-    else:
-        im = _create_window(images[0], is_gray=is_gray)
+def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images_per_row=None,
+                           repeat=False, save_gif=False, save_mp4=False, auto_close=False):
+    """
+    Animate list of images in matrix form
+
+    Parameters
+    -------
+    images : list of numpy.ndarray
+        Images to display
+    titles : list of string
+        Titles for each animation
+    is_gray : bool
+        Whether given images are grayscale or colored
+        True if images are grayscale
+    fps : int
+        Number of frames to display in 1 second.
+        Abbreviation of "frame per second"
+    images_per_row: int
+        Number of images to display in each row
+    repeat: bool
+        Repeat animation when reaches end of images
+    save_gif : bool
+        Save animation as gif image
+    save_mp4 : bool
+        Save animation as mp4
+    auto_close : bool
+        Close animation window after finish animating
+    """
+    fig = plt.figure()
+    im_plt = []
+    im = []
+    images_num = len(images)
+    images = np.array(images)
+    if images_per_row is None:
+        images_per_row = images_num
+    images_per_row = min(images_num, images_per_row)
+    row_num = int(math.ceil(images_num / images_per_row))
+    col_num = images_per_row
+    frame_num = len(images[0])
+    for row in range(row_num):
+        for column in range(col_num):
+            index = row * col_num + column
+            im_plt.append(plt.subplot(row_num, col_num, index + 1))
+            im.append(_create_window(images[index][0], is_gray=is_gray))
 
     def init():
         update(0)
 
     def update(index):
-        if len(cm) != 0:
-            im.set_data(images[index])
+        for i in range(images_num):
+            im[i].set_data(images[i][index])
 
-            for i in range(comparison_num):
-                cm[i].set_data(comparisons[i][index])
-
-            for i, title in enumerate(titles):
-                if i == 0:
-                    im_plt.set_title('{} frame: {}'.format(title, index))
-                else:
-                    cm_plt[i-1].set_title('{} frame: {}'.format(title, index))
-        else:
-            im.set_data(images[index])
-            if 0 < len(titles):
-                plt.title('{} frame: {}'.format(titles[0], index))
+        for i, title in enumerate(titles):
+            im_plt[i].set_title('{} frame: {}'.format(title, index))
         return im
 
     anim = pltanim.FuncAnimation(
-        fig, update, init_func=init, frames=len(images), interval=(1000//fps), repeat=repeat)
+        fig, update, init_func=init, frames=frame_num, interval=(1000//fps), repeat=repeat)
     if save_gif:
         anim.save('anim.gif', writer='imagemagick')
     if save_mp4:
