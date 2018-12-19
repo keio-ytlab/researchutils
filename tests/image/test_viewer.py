@@ -140,6 +140,58 @@ class TestViewer(object):
                             assert mock_imshow.call_count == 1
                             assert mock_show.call_count == 1
 
+    def test_animate_in_matrix_form_1x3(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                            num_frames = 10
+                            video_frames = [np.ndarray(shape=(10, 10, 3))
+                                            for i in range(num_frames)]
+                            videos = [video_frames, video_frames, video_frames]
+                            viewer.animate_in_matrix_form(
+                                videos, auto_close=True, images_per_row=3)
+
+                            assert mock_imshow.call_count == 3
+                            assert mock_subplot.call_count == 3
+                            assert mock_show.call_count == 1
+
+    def test_animate_in_matrix_form_3x1(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                            num_frames = 10
+                            video_frames = [np.ndarray(shape=(10, 10, 3))
+                                            for i in range(num_frames)]
+                            videos = [video_frames, video_frames, video_frames]
+                            viewer.animate_in_matrix_form(
+                                videos, auto_close=True, images_per_row=1)
+
+                            assert mock_imshow.call_count == 3
+                            assert mock_subplot.call_count == 3
+                            assert mock_show.call_count == 1
+
+    def test_animate_in_matrix_form_images_per_row_none(self):
+        with patch('matplotlib.image.AxesImage') as mock_axes:
+            with patch('matplotlib.pyplot.imshow', return_value=mock_axes) as mock_imshow:
+                with patch('matplotlib.pyplot.figure') as mock_figure:
+                    with patch('matplotlib.pyplot.show') as mock_show:
+                        with patch('matplotlib.pyplot.subplot') as mock_subplot:
+                            num_frames = 10
+                            video_frames = [np.ndarray(shape=(10, 10, 3))
+                                            for i in range(num_frames)]
+                            videos = [video_frames, video_frames, video_frames]
+                            viewer.animate_in_matrix_form(
+                                videos, auto_close=True, images_per_row=None)
+
+                            assert mock_imshow.call_count == 3
+                            assert mock_subplot.call_count == 3
+                            assert mock_show.call_count == 1
+
+
 
 if __name__ == '__main__':
     pytest.main()
