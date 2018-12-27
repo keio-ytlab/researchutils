@@ -4,6 +4,35 @@ import chainer.functions as F
 
 
 class ConvLSTM(chainer.Chain):
+    """
+    LSTM layer which processes image input directly instead of conventional LSTM layer
+    See: https://arxiv.org/abs/1506.04214
+
+    If stride is set, this layer outputs image of size input image size divided by stride
+
+    Parameters
+    -------
+    in_channels : int
+        number of input channels
+    out_channels : int 
+        number of output channels
+    ksize: int or tuple of int
+        height and width of the kernel (aka filter). The size must be odd number.
+    stride: int or tuple of int
+        step size of kernel to x and y direction. Input image size must be divisible by given stride.
+    initialW: chainer.initializer
+        initializer to initialize weights used by convolution layer
+    initial_bias: chainer.initializer
+        initializer to initialize bias used by convolution layer
+        If ``None``, the bias will be initialized to zero
+
+    Raises
+    -------
+    ValueError
+        ksize is even number
+    """
+
+
     def __init__(self, in_channels, out_channels, ksize, stride=1, initialW=None, initial_bias=None):
         super(ConvLSTM, self).__init__()
         self.cell_output = None
