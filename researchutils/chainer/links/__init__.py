@@ -1,2 +1,3 @@
+from researchutils.chainer.links.connection.conv_lstm import ConvLSTM
 from researchutils.chainer.links.connection.deconvolution_ps import DeconvolutionPS
 from researchutils.chainer.links.connection.grad_clip_lstm import GradClipLSTM
