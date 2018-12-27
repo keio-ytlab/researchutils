@@ -5,10 +5,10 @@ import chainer.functions as F
 
 class ConvLSTM(chainer.Chain):
     """
-    LSTM layer which processes image input directly instead of conventional LSTM layer
+    LSTM layer which processes images directly unlike conventional LSTM layer
     See: https://arxiv.org/abs/1506.04214
 
-    If stride is set, this layer outputs image of size input image size divided by stride
+    If stride is set, this layer outputs image of input image size divided by stride
 
     Parameters
     -------
