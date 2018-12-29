@@ -17,14 +17,16 @@ class SlackReport(extension.Extension):
         elif isinstance(token_or_client, str):
             self._slack_client = slackclient_module(token=token_or_client)
         else:
-            raise TypeError('Given argument is neither SlackClient nor token!!')
+            raise TypeError(
+                'Given argument is neither SlackClient nor token!!')
         self._entries = entries
         self._channel = channel
         self._log_report = log_report
 
         # create channel if does not exist
         if not self._join_channel(channel):
-            raise ValueError('Could not join to given channel: {}'.format(channel))    
+            raise ValueError(
+                'Could not join to given channel: {}'.format(channel))
 
         # format information
         entry_widths = [max(10, len(s)) for s in entries]
@@ -73,22 +75,31 @@ class SlackReport(extension.Extension):
 
     def _send_message(self, text, channel):
         if not isinstance(self._slack_client, slackclient_module):
-            raise TypeError('slack client has a wrong type %s' % type(self._slack_client))
-        result = self._slack_client.api_call(
-            "chat.postMessage",
-            channel=channel,
-            text=text
-        )
-        return self._is_success_api_call(result)
+            raise TypeError('slack client has a wrong type %s' %
+                            type(self._slack_client))
+        try:
+            result = self._slack_client.api_call(
+                "chat.postMessage",
+                channel=channel,
+                text=text
+            )
+            return self._is_success_api_call(result)
+        except:
+            return False
 
     def _join_channel(self, channel):
         if not isinstance(self._slack_client, slackclient_module):
-            raise TypeError('slack client has a wrong type %s' % type(self._slack_client))
-        result = self._slack_client.api_call(
-            "channels.join",
-            name=channel
-        )
-        return self._is_success_api_call(result)
+            raise TypeError('slack client has a wrong type %s' %
+                            type(self._slack_client))
+        try:
+            result = self._slack_client.api_call(
+                "channels.join",
+                name=channel
+            )
+            return self._is_success_api_call(result)
+        except:
+            # Treat any network error as success to avoid unexpected 
+            return False
 
     def _is_success_api_call(self, result):
         return "ok" in result
