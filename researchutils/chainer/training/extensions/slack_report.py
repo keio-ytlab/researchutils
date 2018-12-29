@@ -98,7 +98,6 @@ class SlackReport(extension.Extension):
             )
             return self._is_success_api_call(result)
         except:
-            # Treat any network error as success to avoid unexpected 
             return False
 
     def _is_success_api_call(self, result):
