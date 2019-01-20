@@ -1,3 +1,4 @@
+from researchutils.chainer.links.connection.action_conditioned_lstm import ActionConditionedLSTM
 from researchutils.chainer.links.connection.conv_lstm import ConvLSTM
 from researchutils.chainer.links.connection.deconvolution_ps import DeconvolutionPS
 from researchutils.chainer.links.connection.grad_clip_lstm import GradClipLSTM
