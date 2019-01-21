@@ -1,3 +1,6 @@
+import functools
+import operator
+
 from chainer.backends import cuda
 from chainer.functions.activation import lstm as lstm_activation
 from chainer import initializers
@@ -7,7 +10,6 @@ from chainer.links.connection import lstm
 from chainer.functions.array import concat
 from chainer.functions.array import split_axis
 from chainer import variable
-
 
 class ActionConditionedLSTM(lstm.LSTM):
     """
@@ -39,8 +41,15 @@ class ActionConditionedLSTM(lstm.LSTM):
         h_fusion_init(self.Wh.W.array)
         a_fusion_init(self.Wa.W.array)
 
-    def forward(self, x):
+    def __call__(self, x):
         x, a = x
+
+        if self.upward.W.data is None:
+            with cuda.get_device_from_id(self._device_id):
+                in_size = functools.reduce(operator.mul, x.shape[1:], 1)
+                self.upward._initialize_params(in_size)
+                self._initialize_params()
+
         if self.Wa.W.array is None:
             in_size = a.size // a.shape[0]
             with cuda.get_device_from_id(self._device_id):
@@ -52,8 +61,8 @@ class ActionConditionedLSTM(lstm.LSTM):
         if self.h is not None:
             h_size = self.h.shape[0]
             if batch == h_size:
-                vt = self.Wh(self.h) * self.Wa(a)
-                lstm_in += self.lateral(vt)
+               vt = self.Wh(self.h) * self.Wa(a)
+               lstm_in += self.lateral(vt)
             else:
                 raise NotImplementedError()
         if self.c is None:
