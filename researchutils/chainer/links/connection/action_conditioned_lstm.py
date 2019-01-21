@@ -1,3 +1,6 @@
+import functools
+import operator
+
 from chainer.backends import cuda
 from chainer.functions.activation import lstm as lstm_activation
 from chainer import initializers
@@ -41,6 +44,13 @@ class ActionConditionedLSTM(lstm.LSTM):
 
     def forward(self, x):
         x, a = x
+
+        if self.upward.W.data is None:
+            with cuda.get_device_from_id(self._device_id):
+                in_size = functools.reduce(operator.mul, x.shape[1:], 1)
+                self.upward._initialize_params(in_size)
+                self._initialize_params()
+
         if self.Wa.W.array is None:
             in_size = a.size // a.shape[0]
             with cuda.get_device_from_id(self._device_id):
