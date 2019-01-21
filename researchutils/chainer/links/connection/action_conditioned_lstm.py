@@ -11,6 +11,7 @@ from chainer.functions.array import concat
 from chainer.functions.array import split_axis
 from chainer import variable
 
+
 class ActionConditionedLSTM(lstm.LSTM):
     """
     LSTM layer which combines input and internal state with given action
@@ -61,8 +62,8 @@ class ActionConditionedLSTM(lstm.LSTM):
         if self.h is not None:
             h_size = self.h.shape[0]
             if batch == h_size:
-               vt = self.Wh(self.h) * self.Wa(a)
-               lstm_in += self.lateral(vt)
+                vt = self.Wh(self.h) * self.Wa(a)
+                lstm_in += self.lateral(vt)
             else:
                 raise NotImplementedError()
         if self.c is None:
