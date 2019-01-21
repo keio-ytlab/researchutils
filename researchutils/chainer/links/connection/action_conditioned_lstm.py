@@ -42,7 +42,7 @@ class ActionConditionedLSTM(lstm.LSTM):
         h_fusion_init(self.Wh.W.array)
         a_fusion_init(self.Wa.W.array)
 
-    def __call__(self, x):
+    def forward(self, x):
         x, a = x
 
         if self.upward.W.data is None:
