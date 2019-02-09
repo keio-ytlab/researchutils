@@ -40,3 +40,21 @@ def one_hot(indices,
     for column, row in enumerate(indices):
         array[row, column] = on_value
     return array
+
+
+def unzip(zipped_array):
+    """
+    Do the opposite of zip() to convert array of tuples to tuple of arrays 
+
+    Parameters
+    -------
+    zipped array : array-like of tuple
+
+    Returns
+    -------
+    unzipped tuple : tuple of array-like
+    """ 
+
+    return zip(*zipped_array)
+
+
