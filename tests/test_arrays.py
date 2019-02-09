@@ -51,6 +51,15 @@ class TestArrays(object):
         with pytest.raises(ValueError):
             arrays.one_hot(indices=range(9), shape=(3, 3, 3), off_value=0.0)
 
+    def test_unzip(self):
+        test_array1 = ['one', 'two', 'three', 'four']
+        test_array2 = [1, 2, 3, 4]
+
+        zipped = zip(test_array1, test_array2)
+        unzipped_array1, unzipped_array2 = arrays.unzip(zipped)
+
+        assert all(expected == actual for expected, actual in zip(test_array1, unzipped_array1))
+        assert all(expected == actual for expected, actual in zip(test_array2, unzipped_array2))
 
 if __name__ == "__main__":
     pytest.main()
