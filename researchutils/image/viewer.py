@@ -127,7 +127,8 @@ def animate(images, comparisons=None, titles=[], is_gray=False, fps=15, repeat=F
 
 
 def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images_per_row=None,
-                           repeat=False, save_gif=False, save_mp4=False, auto_close=False):
+                           repeat=False, save_gif=False, save_mp4=False, auto_close=False,
+                           remove_axis=False):
     """
     Animate list of images in matrix form
 
@@ -153,6 +154,8 @@ def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images
         Save animation as mp4
     auto_close : bool
         Close animation window after finish animating
+    remove_axis : bool
+        Remove x and y axis
     """
     fig = plt.figure()
     im_plt = []
@@ -168,7 +171,10 @@ def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images
     for row in range(row_num):
         for column in range(col_num):
             index = row * col_num + column
-            im_plt.append(plt.subplot(row_num, col_num, index + 1))
+            plot = plt.subplot(row_num, col_num, index + 1)
+            if remove_axis:
+                plot.axis('off')
+            im_plt.append(plot)
             im.append(_create_window(images[index][0], is_gray=is_gray))
 
     def init():
@@ -179,7 +185,11 @@ def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images
             im[i].set_data(images[i][index])
 
         for i, title in enumerate(titles):
-            im_plt[i].set_title('{} frame: {}'.format(title, index))
+            if __is_list(title):
+                title = title[index]
+            else:
+                title = '{} frame: {}'.format(title, index)
+            im_plt[i].set_title(title)
         return im
 
     anim = pltanim.FuncAnimation(
@@ -192,3 +202,7 @@ def animate_in_matrix_form(images=None, titles=[], is_gray=False, fps=15, images
         anim.save('anim.mp4', writer=writer)
     block = not auto_close
     plt.show(block=block)
+
+
+def __is_list(object):
+    return isinstance(object, list)

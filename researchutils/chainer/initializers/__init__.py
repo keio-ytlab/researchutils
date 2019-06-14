@@ -1,0 +1,1 @@
+from researchutils.chainer.initializers.normal_with_loc import NormalWithLoc
