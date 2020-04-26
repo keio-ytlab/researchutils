@@ -6,6 +6,38 @@ import sys
 import six
 import six.moves.cPickle as pickle
 
+from pathlib import Path
+
+
+def search_all_files_under(pathstr, exts=None):
+    """
+    Search for all files with given extension under path
+
+    Parameters
+    -------
+    pathstr : string
+        Root path to search for
+    exts : array-like of string, optional (example: ['.txt', '.md'])
+        Extensions of the file to search. Defaults to None.
+        Extension must start with dot.
+
+    Returns
+    -------
+    filepaths : array-like of pathlib.Path
+        File paths found under given search path
+    """
+    filepaths = []
+    path = Path(pathstr)
+    if not path.exists():
+        raise ValueError('Given file path does not exist!')
+    for f in path.iterdir():
+        if f.is_dir():
+            filepaths.extend(search_all_files_under(f.resolve(), exts=exts))
+        else:
+            if exts is None or f.suffix in exts:
+                filepaths.append(f)
+    return filepaths
+
 
 def file_exists(path):
     """
