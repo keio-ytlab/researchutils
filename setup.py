@@ -5,11 +5,11 @@ import six
 
 if six.PY2:
     # Python 2.7
-    install_requires = ['numpy', 'chainer<7.0.0',
+    install_requires = ['numpy', 'chainer<6.3.0', 'nnabla',
                         'slackclient==1.3.0', 'matplotlib<=2.2.3', 'six', 'future', 'pathlib2']
 else:
     # Python 3-
-    install_requires = ['numpy', 'chainer<7.0.0',
+    install_requires = ['numpy', 'chainer<7.0.0', 'nnabla',
                         'slackclient==1.3.0', 'matplotlib<=2.2.3', 'six', 'future']
 tests_require = ['pytest>=3.2.0', 'mock']
 setup_requires = ["pytest-runner"]
